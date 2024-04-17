@@ -1,0 +1,13 @@
+[Unit]
+Description=Savt python daemon agent
+After=postgresql.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /path/to/your/daemon_script.py
+Restart=always
+User=savt
+Group=savt
+
+[Install]
+WantedBy=multi-user.target
