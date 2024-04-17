@@ -2,7 +2,7 @@ import psycopg2
 
 from .basedb         import Database
 from dataclasses    import dataclass
-from src.collectors   import RamMemoryData, SwapMemoryData
+from src.collectors   import RamMemoryData, SwapMemoryData, CpuUsageData
 
 
 @dataclass
@@ -81,3 +81,22 @@ class PostgresDatabase(Database):
                 VALUES (%s, %s, %s, %s, %s);
                 """
                 cursor.execute(sql, (self.dev_id, swap.total, swap.free, swap.used, swap.percent))
+
+    
+    def save_cpu_usage_data(self, cpu: CpuUsageData):
+        if not self.connection:
+            self.connect()
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                sql = """
+                DELETE FROM 
+                agent.cpu_usage WHERE dev_id = %s;
+                """
+                cursor.execute(sql, (self.dev_id, ))
+
+                sql = """
+                INSERT INTO 
+                agent.cpu_usage (dev_id, cores, mean)
+                VALUES (%s, %s, %s);
+                """
+                cursor.execute(sql, (self.dev_id, cpu.cores, cpu.mean))
