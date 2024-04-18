@@ -1,8 +1,9 @@
 import psycopg2
 
+from typing             import List
 from .basedb            import Database
 from dataclasses        import dataclass
-from src.collectors     import CpuUsageData, MemoryData
+from src.collectors     import CpuUsageData, MemoryData, DiskData
 
 
 @dataclass
@@ -25,7 +26,7 @@ class PostgresDatabase(Database):
         self.connection   = None
         self.cursor       = None
 
-        self.dev_id = 5
+        self.dev_id       = 5
     
     def connect(self):
         try:
@@ -122,3 +123,36 @@ class PostgresDatabase(Database):
                 VALUES (%s, %s, %s);
                 """
                 cursor.execute(sql, (self.dev_id, cpu.cores, cpu.mean))
+
+
+    def save_disks_data(self, disks: List[DiskData]):
+        if not self.connection:
+            self.connect()
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                sql = """
+                DELETE FROM 
+                agent.disks WHERE dev_id = %s;
+                """
+                cursor.execute(sql, (self.dev_id, ))
+
+                sql = """
+                INSERT INTO agent.disks (dev_id, device, mountpoint, total_usage, used_usage, free_usage, percent_usage, read_count, write_count, read_bytes, write_bytes)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                vars_list = [
+                    (   
+                        self.dev_id,
+                        disk.device,
+                        disk.mountpoint,
+                        disk.usage.total,
+                        disk.usage.used,
+                        disk.usage.free,
+                        disk.usage.percent,
+                        disk.io.read_count,
+                        disk.io.write_count,
+                        disk.io.read_bytes,
+                        disk.io.write_bytes
+                    ) for disk in disks
+                ]
+                cursor.executemany(sql, vars_list)
