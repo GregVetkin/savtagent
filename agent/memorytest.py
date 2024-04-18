@@ -1,14 +1,11 @@
 import sys
 sys.path.append("src")
 
-from src.collectors import SwapMemoryDataCollector, RamMemoryDataCollector
+from src.collectors import MemoryDataCollector
 from src.db         import PostgresConfig, PostgresDatabase
-from src.senders    import SwapMemoryDataSender, RamMemoryDataSender
+from src.senders    import MemoryDataSender
 
-from time import sleep, perf_counter
-
-
-
+from time import sleep
 
 
 
@@ -16,6 +13,5 @@ pgconfig = PostgresConfig(dbname="savt")
 pg = PostgresDatabase(pgconfig)
 
 while True:
-    swap_sender = SwapMemoryDataSender.send(SwapMemoryDataCollector.collect(), pg)
-    ram_sender = RamMemoryDataSender.send(RamMemoryDataCollector.collect(), pg)
+    MemoryDataSender.send(MemoryDataCollector.collect(), pg)
     sleep(60)

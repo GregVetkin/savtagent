@@ -1,5 +1,5 @@
 from .basecollector     import DataCollector
-from .memorydata        import RamMemoryData, SwapMemoryData
+from .memorydata        import RamMemoryData, SwapMemoryData, MemoryData
 from psutil             import virtual_memory, swap_memory
 
 
@@ -22,4 +22,11 @@ class SwapMemoryDataCollector(DataCollector):
             free    = swap.free,
             used    = swap.used,
             percent = swap.percent
+        )
+    
+class MemoryDataCollector(DataCollector):
+    def collect() -> MemoryData:
+        return MemoryData(
+            ram     = RamMemoryDataCollector.collect(),
+            swap    = SwapMemoryDataCollector.collect(),
         )

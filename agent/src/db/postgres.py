@@ -1,8 +1,8 @@
 import psycopg2
 
-from .basedb         import Database
-from dataclasses    import dataclass
-from src.collectors   import RamMemoryData, SwapMemoryData, CpuUsageData
+from .basedb            import Database
+from dataclasses        import dataclass
+from src.collectors     import CpuUsageData, MemoryData
 
 
 @dataclass
@@ -45,42 +45,64 @@ class PostgresDatabase(Database):
             self.cursor.close()
             self.connection.close()
 
-    
-    def save_ram_data(self, ram: RamMemoryData):
+    def save_memory_data(self, memory: MemoryData):
         if not self.connection:
             self.connect()
         with self.connection:
             with self.connection.cursor() as cursor:
                 sql = """
                 DELETE FROM 
-                agent.memory_ram WHERE dev_id = %s;
+                agent.memory WHERE dev_id = %s;
                 """
                 cursor.execute(sql, (self.dev_id, ))
-
                 sql = """
                 INSERT INTO 
-                agent.memory_ram (dev_id, total, available, used, percent)
-                VALUES (%s, %s, %s, %s, %s);
+                agent.memory (dev_id, 
+                ram_total, ram_available, ram_used, ram_percent,
+                swap_total, swap_free, swap_used, swap_percent)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
                 """
-                cursor.execute(sql, (self.dev_id, ram.total, ram.available, ram.used, ram.percent))
+                cursor.execute(sql, (self.dev_id,
+                                     memory.ram.total, memory.ram.available, memory.ram.used, memory.ram.percent,
+                                     memory.swap.total, memory.swap.free, memory.swap.used, memory.swap.percent))
+
+
+    
+    # def save_ram_data(self, ram: RamMemoryData):
+    #     if not self.connection:
+    #         self.connect()
+    #     with self.connection:
+    #         with self.connection.cursor() as cursor:
+    #             sql = """
+    #             DELETE FROM 
+    #             agent.memory WHERE dev_id = %s;
+    #             """
+    #             cursor.execute(sql, (self.dev_id, ))
+
+    #             sql = """
+    #             INSERT INTO 
+    #             agent.memory_ram (dev_id, total, available, used, percent)
+    #             VALUES (%s, %s, %s, %s, %s);
+    #             """
+    #             cursor.execute(sql, (self.dev_id, ram.total, ram.available, ram.used, ram.percent))
         
 
-    def save_swap_data(self, swap: SwapMemoryData):
-        if not self.connection:
-            self.connect()
-        with self.connection:
-            with self.connection.cursor() as cursor:
-                sql = """
-                DELETE FROM 
-                agent.memory_swap WHERE dev_id = %s;
-                """
-                cursor.execute(sql, (self.dev_id, ))
-                sql = """
-                INSERT INTO 
-                agent.memory_swap (dev_id, total, free, used, percent)
-                VALUES (%s, %s, %s, %s, %s);
-                """
-                cursor.execute(sql, (self.dev_id, swap.total, swap.free, swap.used, swap.percent))
+    # def save_swap_data(self, swap: SwapMemoryData):
+    #     if not self.connection:
+    #         self.connect()
+    #     with self.connection:
+    #         with self.connection.cursor() as cursor:
+    #             sql = """
+    #             DELETE FROM 
+    #             agent.memory_swap WHERE dev_id = %s;
+    #             """
+    #             cursor.execute(sql, (self.dev_id, ))
+    #             sql = """
+    #             INSERT INTO 
+    #             agent.memory_swap (dev_id, total, free, used, percent)
+    #             VALUES (%s, %s, %s, %s, %s);
+    #             """
+    #             cursor.execute(sql, (self.dev_id, swap.total, swap.free, swap.used, swap.percent))
 
     
     def save_cpu_usage_data(self, cpu: CpuUsageData):

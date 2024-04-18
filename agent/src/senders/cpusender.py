@@ -1,5 +1,5 @@
-from .baseseder import DataSender
-from ..collectors import CpuUsageData
+from .baseseder     import DataSender
+from ..collectors   import CpuUsageData
 
 
 class CpuUsageDataSender(DataSender):

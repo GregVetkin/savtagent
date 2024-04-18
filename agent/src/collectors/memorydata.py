@@ -15,3 +15,8 @@ class SwapMemoryData:
     used:       int     = 0
     free:       int     = 0
 
+
+@dataclass
+class MemoryData:
+    ram:    RamMemoryData
+    swap:   SwapMemoryData

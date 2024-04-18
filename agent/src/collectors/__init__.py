@@ -1,17 +1,21 @@
-from .memorycollector   import SwapMemoryDataCollector, RamMemoryDataCollector
-from .memorydata        import SwapMemoryData, RamMemoryData
+from .memorycollector   import MemoryDataCollector
+from .memorydata        import MemoryData
 
 from .cpucollector      import CpuUsageDataCollector
 from .cpudata           import CpuUsageData
 
+from .diskcollector     import DisksDataCollector
+from .diskdata          import DiskData
+
 
 __all__ = [
-    "RamMemoryDataCollector",
-    "RamMemoryData",
-
-    "SwapMemoryDataCollector",
-    "SwapMemoryData",
+    "MemoryDataCollector",
+    "MemoryData",
 
     "CpuUsageDataCollector",
     "CpuUsageData",
+
+    "DisksDataCollector",
+    "DiskData",
+
 ]

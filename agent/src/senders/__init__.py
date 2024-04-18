@@ -1,9 +1,9 @@
-from .memorysender  import SwapMemoryDataSender, RamMemoryDataSender
-
+from .memorysender  import MemoryDataSender
+from .disksender    import DisksDataSender
 from .cpusender     import CpuUsageDataSender
 
 __all__ = [
-    "SwapMemoryDataSender",
-    "RamMemoryDataSender",
+    "MemoryDataSender",
     "CpuUsageDataSender",
+    "DisksDataSender"
 ]
