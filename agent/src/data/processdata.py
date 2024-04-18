@@ -8,5 +8,5 @@ class ProcessData:
     user:           str     = ""
     status:         str     = ""
     memory_usage:   int     = 0
-    cpu_usage:      int     = 0
+    cpu_usage:      float   = 0.0
 

@@ -3,7 +3,7 @@ import psycopg2
 from typing             import List
 from .basedb            import Database
 from dataclasses        import dataclass
-from ..data             import CpuUsageData, MemoryData, DiskData
+from ..data             import CpuUsageData, MemoryData, DiskData, ProcessData
 
 
 @dataclass
@@ -156,3 +156,34 @@ class PostgresDatabase(Database):
                     ) for disk in disks
                 ]
                 cursor.executemany(sql, vars_list)
+    
+
+    def save_processes_data(self, processes: List[ProcessData]):
+        if not self.connection:
+            self.connect()
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                sql = """
+                DELETE FROM 
+                agent.processes WHERE dev_id = %s;
+                """
+                cursor.execute(sql, (self.dev_id, ))
+
+                sql = """
+                INSERT INTO agent.processes (dev_id, pid, name, username, status, memory_usage, cpu_usage)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """
+                vars_list = [
+                    (   
+                        self.dev_id,
+                        p.pid,
+                        p.name,
+                        p.user,
+                        p.status,
+                        p.memory_usage,
+                        p.cpu_usage,
+                    ) for p in processes
+                ]
+                cursor.executemany(sql, vars_list)
+
+
