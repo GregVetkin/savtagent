@@ -1,5 +1,5 @@
-from .baseseder     import DataSender
-from ..collectors   import DiskData
+from .basesender    import DataSender
+from ..data         import DiskData
 from typing         import List
 
 

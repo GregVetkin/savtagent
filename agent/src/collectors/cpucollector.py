@@ -1,5 +1,5 @@
 from .basecollector     import DataCollector
-from .cpudata           import CpuUsageData
+from ..data             import CpuUsageData
 from psutil             import cpu_percent
 from statistics         import mean
 

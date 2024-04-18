@@ -1,5 +1,5 @@
 from .basecollector     import DataCollector
-from .diskdata          import DiskIOData, DiskData, DiskUsageData
+from ..data             import DiskIOData, DiskData, DiskUsageData
 from psutil             import disk_io_counters, disk_partitions, disk_usage
 from typing             import List
 

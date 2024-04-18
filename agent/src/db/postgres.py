@@ -3,7 +3,7 @@ import psycopg2
 from typing             import List
 from .basedb            import Database
 from dataclasses        import dataclass
-from src.collectors     import CpuUsageData, MemoryData, DiskData
+from ..data             import CpuUsageData, MemoryData, DiskData
 
 
 @dataclass

@@ -1,5 +1,5 @@
 from .basecollector     import DataCollector
-from .memorydata        import RamMemoryData, SwapMemoryData, MemoryData
+from ..data             import RamMemoryData, SwapMemoryData, MemoryData
 from psutil             import virtual_memory, swap_memory
 
 
