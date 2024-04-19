@@ -2,7 +2,7 @@ from .memorycollector   import MemoryCollector
 from .cpucollector      import CpuUsageCollector
 from .diskcollector     import DisksCollector
 from .processcollector  import ProcessesCollector
-from .networkcollector  import NetInterfacesesIOCollector
+from .networkcollector  import NetInterfacesesIOCollector, NetConnectionsCollector
 from .basecollector     import DataCollector
 
 
@@ -13,4 +13,5 @@ __all__ = [
     "DisksCollector",
     "ProcessesCollector",
     "NetInterfacesesIOCollector",
+    "NetConnectionsCollector",
 ]

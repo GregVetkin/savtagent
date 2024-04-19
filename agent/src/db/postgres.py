@@ -3,7 +3,7 @@ import psycopg2
 from typing             import List
 from .basedb            import Database
 from dataclasses        import dataclass
-from ..data             import CpuUsage, Memory, Disk, Process, NetInterfaceIO
+from ..data             import CpuUsage, Memory, Disk, Process, NetInterfaceIO, NetConnection
 
 
 @dataclass
@@ -215,3 +215,32 @@ class PostgresDatabase(Database):
                 cursor.executemany(sql, vars_list)
 
 
+    def save_net_connections_data(self, connections: List[NetConnection]):
+        if not self.connection:
+            self.connect()
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                sql = """
+                DELETE FROM 
+                agent.net_connections WHERE dev_id = %s;
+                """
+                cursor.execute(sql, (self.dev_id, ))
+
+                sql = """
+                INSERT INTO agent.net_connections (dev_id, family, kind, laddr_ip, laddr_port, raddr_ip, raddr_port, status, pid)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """
+                vars_list = [
+                    (   
+                        self.dev_id,
+                        c.family,
+                        c.kind,
+                        c.laddr.ip,
+                        c.laddr.port,
+                        c.raddr.ip,
+                        c.raddr.port,
+                        c.status,
+                        c.pid,
+                    ) for c in connections
+                ]
+                cursor.executemany(sql, vars_list)
