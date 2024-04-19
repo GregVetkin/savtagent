@@ -1,8 +1,8 @@
 from .basesender    import DataSender
-from ..data         import NetInterfaceIOData
+from ..data         import NetInterfaceIO
 from typing         import List
 
 
-class NetInterfacesesIODataSender(DataSender):
-    def send(net_io: List[NetInterfaceIOData], receiver):
+class NetInterfacesesIOSender(DataSender):
+    def send(net_io: List[NetInterfaceIO], receiver):
         receiver.save_net_io_data(net_io)

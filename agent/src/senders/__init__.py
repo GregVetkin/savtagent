@@ -1,14 +1,16 @@
-from .memorysender      import MemoryDataSender
-from .disksender        import DisksDataSender
-from .cpusender         import CpuUsageDataSender
-from .processsender     import ProcessesDataSender
-from .networksender     import NetInterfacesesIODataSender
+from .basesender        import DataSender
+from .memorysender      import MemorySender
+from .disksender        import DisksSender
+from .cpusender         import CpuUsageSender
+from .processsender     import ProcessesSender
+from .networksender     import NetInterfacesesIOSender
 
 
 __all__ = [
-    "MemoryDataSender",
-    "CpuUsageDataSender",
-    "DisksDataSender",
-    "ProcessesDataSender",
-    "NetInterfacesesIODataSender",
+    "DataSender"
+    "MemorySender",
+    "CpuUsageSender",
+    "DisksSender",
+    "ProcessesSender",
+    "NetInterfacesesIOSender",
 ]

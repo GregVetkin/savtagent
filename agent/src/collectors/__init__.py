@@ -1,14 +1,16 @@
-from .memorycollector   import MemoryDataCollector
-from .cpucollector      import CpuUsageDataCollector
-from .diskcollector     import DisksDataCollector
-from .processcollector  import ProcessesDataCollector
-from .networkcollector  import NetInterfacesesIODataCollector
+from .memorycollector   import MemoryCollector
+from .cpucollector      import CpuUsageCollector
+from .diskcollector     import DisksCollector
+from .processcollector  import ProcessesCollector
+from .networkcollector  import NetInterfacesesIOCollector
+from .basecollector     import DataCollector
 
 
 __all__ = [
-    "MemoryDataCollector",
-    "CpuUsageDataCollector",
-    "DisksDataCollector",
-    "ProcessesDataCollector",
-    "NetInterfacesesIODataCollector",
+    "DataCollector",
+    "MemoryCollector",
+    "CpuUsageCollector",
+    "DisksCollector",
+    "ProcessesCollector",
+    "NetInterfacesesIOCollector",
 ]

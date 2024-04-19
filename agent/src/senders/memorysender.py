@@ -1,17 +1,17 @@
 from .basesender    import DataSender
-from ..data         import MemoryData, RamMemoryData, SwapMemoryData
+from ..data         import Memory, RamMemory, SwapMemory
 
 
-class RamMemoryDataSender(DataSender):
-    def send(ram: RamMemoryData, receiver):
+class RamMemorySender(DataSender):
+    def send(ram: RamMemory, receiver):
         receiver.save_ram_data(ram)
 
 
-class SwapMemoryDataSender(DataSender):
-    def send(swap: SwapMemoryData, receiver):
+class SwapMemorySender(DataSender):
+    def send(swap: SwapMemory, receiver):
         receiver.save_swap_data(swap)
 
 
-class MemoryDataSender(DataSender):
-    def send(memory: MemoryData, receiver):
+class MemorySender(DataSender):
+    def send(memory: Memory, receiver):
         receiver.save_memory_data(memory)

@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 @dataclass
-class NetInterfaceIOData:
+class NetInterfaceIO:
     interface:      str = ""
     bytes_sent:     int = 0
     bytes_recv:     int = 0
@@ -14,16 +14,16 @@ class NetInterfaceIOData:
 
 
 @dataclass
-class NetAddressData:
+class NetAddress:
     ip:     str = ""
     port:   int = 0
 
 
 @dataclass
-class NetConnectionData:
+class NetConnection:
     family: int             = 0
     kind:   int             = 0
-    laddr:  NetAddressData  = field(default_factory=NetAddressData)
-    raddr:  NetAddressData  = field(default_factory=NetAddressData)
+    laddr:  NetAddress      = field(default_factory=NetAddress)
+    raddr:  NetAddress      = field(default_factory=NetAddress)
     status: str             = ""
     pid:    int             = 0

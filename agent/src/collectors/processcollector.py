@@ -1,13 +1,13 @@
 from .basecollector     import DataCollector
-from ..data             import ProcessData
+from ..data             import Process
 from psutil             import process_iter, NoSuchProcess, ZombieProcess, AccessDenied, cpu_count
 from typing             import List
 from time               import sleep
 
 
 
-class ProcessesDataCollector(DataCollector):
-    def collect() -> List[ProcessData]:
+class ProcessesCollector(DataCollector):
+    def collect() -> List[Process]:
         processes_info = []
         # записать в кэш тайминги процессора на процессах
         for process in process_iter():
@@ -18,7 +18,7 @@ class ProcessesDataCollector(DataCollector):
         for process in process_iter():
             try:
                 processes_info.append(
-                    ProcessData(
+                    Process(
                         pid             = process.pid,
                         name            = process.name(),
                         user            = process.username(),

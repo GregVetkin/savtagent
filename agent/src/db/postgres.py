@@ -3,7 +3,7 @@ import psycopg2
 from typing             import List
 from .basedb            import Database
 from dataclasses        import dataclass
-from ..data             import CpuUsageData, MemoryData, DiskData, ProcessData, NetInterfaceIOData
+from ..data             import CpuUsage, Memory, Disk, Process, NetInterfaceIO
 
 
 @dataclass
@@ -46,7 +46,7 @@ class PostgresDatabase(Database):
             self.cursor.close()
             self.connection.close()
 
-    def save_memory_data(self, memory: MemoryData):
+    def save_memory_data(self, memory: Memory):
         if not self.connection:
             self.connect()
         with self.connection:
@@ -106,7 +106,7 @@ class PostgresDatabase(Database):
     #             cursor.execute(sql, (self.dev_id, swap.total, swap.free, swap.used, swap.percent))
 
     
-    def save_cpu_usage_data(self, cpu: CpuUsageData):
+    def save_cpu_usage_data(self, cpu: CpuUsage):
         if not self.connection:
             self.connect()
         with self.connection:
@@ -125,7 +125,7 @@ class PostgresDatabase(Database):
                 cursor.execute(sql, (self.dev_id, cpu.cores, cpu.mean))
 
 
-    def save_disks_data(self, disks: List[DiskData]):
+    def save_disks_data(self, disks: List[Disk]):
         if not self.connection:
             self.connect()
         with self.connection:
@@ -158,7 +158,7 @@ class PostgresDatabase(Database):
                 cursor.executemany(sql, vars_list)
     
 
-    def save_processes_data(self, processes: List[ProcessData]):
+    def save_processes_data(self, processes: List[Process]):
         if not self.connection:
             self.connect()
         with self.connection:
@@ -187,7 +187,7 @@ class PostgresDatabase(Database):
                 cursor.executemany(sql, vars_list)
 
     
-    def save_net_io_data(self, net_io: List[NetInterfaceIOData]):
+    def save_net_io_data(self, net_io: List[NetInterfaceIO]):
         if not self.connection:
             self.connect()
         with self.connection:

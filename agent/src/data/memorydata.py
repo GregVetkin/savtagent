@@ -1,7 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 @dataclass
-class RamMemoryData:
+class RamMemory:
     total:      int     = 0
     available:  int     = 0
     percent:    float   = 0
@@ -9,7 +9,7 @@ class RamMemoryData:
 
 
 @dataclass
-class SwapMemoryData:
+class SwapMemory:
     total:      int     = 0
     percent:    float   = 0
     used:       int     = 0
@@ -17,6 +17,6 @@ class SwapMemoryData:
 
 
 @dataclass
-class MemoryData:
-    ram:    RamMemoryData
-    swap:   SwapMemoryData
+class Memory:
+    ram:    RamMemory   = field(default_factory=RamMemory)
+    swap:   SwapMemory  = field(default_factory=SwapMemory)

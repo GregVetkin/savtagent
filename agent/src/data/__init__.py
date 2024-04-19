@@ -1,21 +1,25 @@
-from .cpudata       import CpuUsageData
-from .diskdata      import DiskData, DiskIOData, DiskUsageData
-from .memorydata    import MemoryData, RamMemoryData, SwapMemoryData
-from .processdata   import ProcessData
-from .networkdata   import NetInterfaceIOData
+from .basedata      import DataClass
+from .cpudata       import CpuUsage
+from .diskdata      import Disk, DiskIO, DiskUsage
+from .memorydata    import Memory, RamMemory, SwapMemory
+from .processdata   import Process
+from .networkdata   import NetInterfaceIO
+
 
 __all__ = [
-    "CpuUsageData",
+    "DataClass",
 
-    "DiskData",
-    "DiskIOData",
-    "DiskUsageData",
+    "CpuUsage",
 
-    "MemoryData",
-    "RamMemoryData",
-    "SwapMemoryData",
+    "Disk",
+    "DiskIO",
+    "DiskUsage",
 
-    "ProcessData",
+    "Memory",
+    "RamMemory",
+    "SwapMemory",
 
-    "NetInterfaceIOData",
+    "Process",
+
+    "NetInterfaceIO",
 ]

@@ -1,8 +1,8 @@
 from .basesender    import DataSender
-from ..data         import ProcessData
+from ..data         import Process
 from typing         import List
 
 
-class ProcessesDataSender(DataSender):
-    def send(processes: List[ProcessData], receiver):
+class ProcessesSender(DataSender):
+    def send(processes: List[Process], receiver):
         receiver.save_processes_data(processes)

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class ProcessData:
+class Process:
     pid:            int     = 0
     name:           str     = ""
     user:           str     = ""

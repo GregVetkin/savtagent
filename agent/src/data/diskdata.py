@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 
 
 @dataclass
-class DiskUsageData:
+class DiskUsage:
     total:      int     = 0
     used:       int     = 0
     free:       int     = 0
@@ -10,7 +10,7 @@ class DiskUsageData:
     
 
 @dataclass
-class DiskIOData:
+class DiskIO:
     read_count:     int = 0
     write_count:    int = 0
     read_bytes:     int = 0
@@ -18,9 +18,9 @@ class DiskIOData:
 
 
 @dataclass
-class DiskData:
-    device:     str     = ""
-    mountpoint: str     = ""
-    usage:      DiskUsageData = field(default_factory=DiskUsageData)
-    io:         DiskIOData    = field(default_factory=DiskIOData)
+class Disk:
+    device:     str         = ""
+    mountpoint: str         = ""
+    usage:      DiskUsage   = field(default_factory=DiskUsage)
+    io:         DiskIO      = field(default_factory=DiskIO)
 

@@ -1,7 +1,7 @@
 from .basesender    import DataSender
-from ..data         import CpuUsageData
+from ..data         import CpuUsage
 
 
-class CpuUsageDataSender(DataSender):
-    def send(cpu: CpuUsageData, receiver):
+class CpuUsageSender(DataSender):
+    def send(cpu: CpuUsage, receiver):
         receiver.save_cpu_usage_data(cpu)
