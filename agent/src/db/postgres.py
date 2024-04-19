@@ -3,7 +3,7 @@ import psycopg2
 from typing             import List
 from .basedb            import Database
 from dataclasses        import dataclass
-from ..data             import CpuUsageData, MemoryData, DiskData, ProcessData
+from ..data             import CpuUsageData, MemoryData, DiskData, ProcessData, NetInterfaceIOData
 
 
 @dataclass
@@ -183,6 +183,34 @@ class PostgresDatabase(Database):
                         p.memory_usage,
                         p.cpu_usage,
                     ) for p in processes
+                ]
+                cursor.executemany(sql, vars_list)
+
+    
+    def save_net_io_data(self, net_io: List[NetInterfaceIOData]):
+        if not self.connection:
+            self.connect()
+        with self.connection:
+            with self.connection.cursor() as cursor:
+                sql = """
+                DELETE FROM 
+                agent.net_io WHERE dev_id = %s;
+                """
+                cursor.execute(sql, (self.dev_id, ))
+
+                sql = """
+                INSERT INTO agent.net_io (dev_id, interface, bytes_sent, bytes_recv, packets_sent, packets_recv)
+                VALUES (%s, %s, %s, %s, %s, %s)
+                """
+                vars_list = [
+                    (   
+                        self.dev_id,
+                        io.interface,
+                        io.bytes_sent,
+                        io.bytes_recv,
+                        io.packets_sent,
+                        io.packets_recv,
+                    ) for io in net_io
                 ]
                 cursor.executemany(sql, vars_list)
 
