@@ -9,7 +9,7 @@ class RamMemoryCollector(DataCollector):
         return RamMemory(
             total       = ram.total,
             available   = ram.available,
-            used        = ram.used,
+            used        = ram.total - ram.available,
             percent     = ram.percent
         )
     

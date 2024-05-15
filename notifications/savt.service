@@ -1,0 +1,13 @@
+[Unit]
+Description=Test SAVT Agent
+After=network.target
+
+[Service]
+Type=simple
+User=savt
+WorkingDirectory=/savt
+ExecStart=/usr/bin/python3 main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

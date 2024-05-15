@@ -1,0 +1,15 @@
+создать системного пользователя savt: sudo useradd -r имя_пользователя
+
+добавить его в группу sudo: /etc/sudoers
+и убрать проверку пароля: имя_пользователя ALL=(ALL) NOPASSWD: ALL
+
+
+создать в корне директорию /savt
+сделать владельцем системного пользователя savt созданного
+
+savt.service файл демона переместить в /lib/systemd/system/savt.service
+
+перезапустить настройки демонов systemctl daemon-reload
+добавить в автозапуск systemctl enable savt
+запустить демона systemctl start savt
+
