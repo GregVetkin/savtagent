@@ -32,6 +32,9 @@ def file_info():
     if not os.path.isfile(file_path):
         return jsonify({'error': 'File not found'}), 404
     
+    if hashalg not in [None, "md5", "sha256"]:
+        return jsonify({'error': 'No such hash algorithm. Available: md5, sha256'}), 404
+    
     
     fileinfo = FileInfoCollector(file_path, hashalg).collect()
 
