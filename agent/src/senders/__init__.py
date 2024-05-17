@@ -4,6 +4,7 @@ from .disksender        import DisksSender
 from .cpusender         import CpuUsageSender
 from .processsender     import ProcessesSender
 from .networksender     import NetInterfacesesIOSender, NetConnectionsSender
+from .filesender        import FileInfoSender
 
 
 __all__ = [
@@ -14,4 +15,5 @@ __all__ = [
     "ProcessesSender",
     "NetInterfacesesIOSender",
     "NetConnectionsSender",
+    "FileInfoSender",
 ]

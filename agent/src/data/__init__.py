@@ -4,7 +4,7 @@ from .diskdata      import Disk, DiskIO, DiskUsage
 from .memorydata    import Memory, RamMemory, SwapMemory
 from .processdata   import Process
 from .networkdata   import NetInterfaceIO, NetAddress, NetConnection
-
+from .filedata      import FileInfo
 
 __all__ = [
     "DataClass",
@@ -24,4 +24,6 @@ __all__ = [
     "NetInterfaceIO",
     "NetAddress",
     "NetConnection",
+
+    "FileInfo"
 ]

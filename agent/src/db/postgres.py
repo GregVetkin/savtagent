@@ -3,7 +3,7 @@ import psycopg2
 from typing             import List
 from .basedb            import Database
 from dataclasses        import dataclass
-from ..data             import CpuUsage, Memory, Disk, Process, NetInterfaceIO, NetConnection
+from ..data             import CpuUsage, Memory, Disk, Process, NetInterfaceIO, NetConnection, FileInfo
 
 
 @dataclass
@@ -244,3 +244,8 @@ class PostgresDatabase(Database):
                     ) for c in connections
                 ]
                 cursor.executemany(sql, vars_list)
+
+
+    def save_fileinfo_data(self, fileinfo: FileInfo):
+        """TODO: придумать и сделать реализацию записи данных файла в бд"""
+        pass
