@@ -10,10 +10,10 @@ class ProcessesCollector(DataCollector):
     def collect() -> List[Process]:
         processes_info = []
         # записать в кэш тайминги процессора на процессах
-        for process in process_iter():
-            process.cpu_percent()
+        #for process in process_iter():
+        #    process.cpu_percent()
         # подождать 1 секунду, чтобы иметь разницу работы процессора на процессах за время
-        sleep(1)
+        # sleep(1)
         number_cpu = cpu_count(logical=True)
         for process in process_iter():
             try:

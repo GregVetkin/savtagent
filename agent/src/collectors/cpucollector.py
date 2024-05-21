@@ -6,7 +6,7 @@ from statistics         import mean
 
 class CpuUsageCollector(DataCollector):
     def collect() -> CpuUsage:
-        cpu = cpu_percent(percpu=True, interval=1.0)
+        cpu = cpu_percent(percpu=True, interval=None)#1.0)
         return CpuUsage(
             cores   = cpu,
             mean    = mean(cpu),
