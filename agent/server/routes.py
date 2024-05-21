@@ -3,6 +3,7 @@ import os
 from dataclasses      import asdict
 from flask            import Response, jsonify, request
 from .blueprint       import get_blueprint
+from src.tools        import shutdown, reboot, notification
 from src.collectors   import (MemoryCollector, 
                               CpuUsageCollector, 
                               DisksCollector, 
@@ -10,6 +11,8 @@ from src.collectors   import (MemoryCollector,
                               NetInterfacesesIOCollector, 
                               ProcessesCollector, 
                               FileInfoCollector)
+
+
 
 # Создаем экземпляр Blueprint
 BLUEPRINT = get_blueprint()
@@ -38,7 +41,7 @@ def get_fileinfo():
     file_path   = request.args.get('path')
     hashalg     = request.args.get('hashalg')
     
-    if not os.path.isfile(file_path):
+    if not file_path and os.path.isfile(file_path):
         return jsonify({'error': 'File not found'}), 404
     
     if hashalg not in [None, "md5", "sha256"]:
@@ -77,6 +80,36 @@ def get_network():
     interfaces_dict_list = [asdict(interface) for interface in interfaces]
     interfaces_json      = json.dumps(interfaces_dict_list, indent=4)
     return Response(interfaces_json, content_type="application/json")
+
+
+
+@BLUEPRINT.route('/message', methods=['GET'])
+def send_notification():
+    title   = request.args.get('title')
+    text    = request.args.get('text')
+
+    if title is None:
+        return jsonify({'error': 'No title'}), 404
+    if text is None:
+        return jsonify({'error': 'No text message'}), 404
+
+    notification(title, text)
+
+    return "OK"
+
+
+@BLUEPRINT.route('/shutdown', methods=['GET'])
+def shutdown_pc():
+    shutdown()
+    return "OK"
+
+
+@BLUEPRINT.route('/reboot', methods=['GET'])
+def reboot_pc():
+    reboot()
+    return "OK"
+
+
 
 
 

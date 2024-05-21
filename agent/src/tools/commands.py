@@ -1,13 +1,15 @@
 import subprocess
 import os
 
+NOTIFICATION_SCRIPT = "./src/tools/notification.py"
+PYTHON_PATH = "/usr/bin/python3"
+
 
 
 def notification(title, text):
     username = "greg"
-    py_file = "./notification.py"
     
-    subprocess.run(["sudo", "-u", username, "/usr/bin/python3", py_file, f'"{title}"', f'"{text}"'], 
+    subprocess.run(["sudo", "-u", username, PYTHON_PATH, NOTIFICATION_SCRIPT, f'{title}', f'{text}'], 
                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 
