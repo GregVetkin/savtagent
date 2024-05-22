@@ -3,7 +3,7 @@ import os
 from dataclasses      import asdict
 from flask            import Response, jsonify, request
 from .blueprint       import get_blueprint
-from src.tools        import shutdown, reboot, notification
+from src.tools        import shutdown, reboot, notification, journalctl_logs
 from src.collectors   import (MemoryCollector, 
                               CpuUsageCollector, 
                               DisksCollector, 
@@ -111,5 +111,19 @@ def reboot_pc():
 
 
 
+@BLUEPRINT.route('/logs', methods=['GET'])
+def get_journalctl_logs():
+    since       = request.args.get('since')
+    until       = request.args.get('until')
+    priority    = request.args.get('priority')
+    lines       = request.args.get('lines')
+    unit        = request.args.get('unit')
 
+    if priority not in ["0", "1", "2", "3", "4", "5", "6", "7", 
+                        "debug", "info", "notice", "warning", "err", "crit", "alert", "emerg"]:
+        return jsonify({'error': 'Bad priority. Accepted: 0, 1, 2, 3, 4, 5, 6, 7, debug, info, notice, warning, err, crit, alert, emerg'})
+
+
+    logs        = journalctl_logs(since, until, priority, lines, unit)
+    return jsonify(logs)
 
