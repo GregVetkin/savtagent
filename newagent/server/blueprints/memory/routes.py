@@ -1,5 +1,4 @@
 import json
-
 from dataclasses        import asdict
 from flask              import Response, Blueprint, jsonify
 from modules.memory     import MemoryCollector, RamMemoryCollector, SwapMemoryCollector

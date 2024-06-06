@@ -4,6 +4,8 @@ from typing                         import List
 
 
 from .blueprints.memory.routes      import memory_blueprint
+from .blueprints.cpu.routes         import cpu_blueprint
+from .blueprints.file.routes        import file_blueprint
 
 
 
@@ -16,6 +18,8 @@ DEBUG   = True
 
 BLUEPRINTS = [
     memory_blueprint,
+    cpu_blueprint,
+    file_blueprint,
 ]
 
 
