@@ -3,4 +3,4 @@ from flask              import Response, Blueprint, jsonify
 
 
 
-blueprint_system = Blueprint('system', __name__)
+blueprint_process = Blueprint('process', __name__)
