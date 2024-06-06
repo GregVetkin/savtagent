@@ -1,9 +1,11 @@
 from flask              import Flask
+from flask_cors         import CORS
 from .blueprint         import init_routes
 from .routes            import BLUEPRINT
 
 
 APP     = Flask(__name__)
+CORS(APP)
 
 HOST    = '0.0.0.0'
 PORT    = 8081

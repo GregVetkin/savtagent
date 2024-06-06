@@ -119,7 +119,7 @@ def get_journalctl_logs():
     lines       = request.args.get('lines')
     unit        = request.args.get('unit')
 
-    if priority not in ["0", "1", "2", "3", "4", "5", "6", "7", 
+    if priority not in [None, "0", "1", "2", "3", "4", "5", "6", "7", 
                         "debug", "info", "notice", "warning", "err", "crit", "alert", "emerg"]:
         return jsonify({'error': 'Bad priority. Accepted: 0, 1, 2, 3, 4, 5, 6, 7, debug, info, notice, warning, err, crit, alert, emerg'})
 
@@ -127,3 +127,8 @@ def get_journalctl_logs():
     logs        = journalctl_logs(since, until, priority, lines, unit)
     return jsonify(logs)
 
+
+from flask import  send_file
+@BLUEPRINT.route('/')
+def index():
+    return send_file('index.html')

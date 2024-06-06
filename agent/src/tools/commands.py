@@ -7,6 +7,10 @@ PYTHON_PATH = "/usr/bin/python3"
 
 
 def notification(title, text):
+    """
+    TODO
+    Добавить получение списка всех активных пользователей и вызов уведомлений для каждого из них
+    """
     username = "greg"
     
     subprocess.run(["sudo", "-u", username, PYTHON_PATH, NOTIFICATION_SCRIPT, f'{title}', f'{text}'], 
