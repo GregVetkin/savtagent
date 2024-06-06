@@ -3,24 +3,23 @@ from flask_cors                     import CORS
 from typing                         import List
 
 
-from .blueprints.memory.routes      import memory_blueprint
-from .blueprints.cpu.routes         import cpu_blueprint
-from .blueprints.file.routes        import file_blueprint
+from .blueprints.memory.routes      import blueprint_memory
+from .blueprints.cpu.routes         import blueprint_cpu
+from .blueprints.file.routes        import blueprint_file
+from .blueprints.storage.routes     import blueprint_storage
 
 
-
-APP     = Flask(__name__)
-CORS(APP)
-
-HOST    = '0.0.0.0'
-PORT    = 8081
-DEBUG   = True
-
-BLUEPRINTS = [
-    memory_blueprint,
-    cpu_blueprint,
-    file_blueprint,
+APP         = Flask(__name__)
+HOST        = '0.0.0.0'
+PORT        = 8081
+DEBUG       = True
+BLUEPRINTS  = [
+    blueprint_memory,
+    blueprint_cpu,
+    blueprint_file,
+    blueprint_storage
 ]
+CORS(APP)
 
 
 def register_blueprints(app: Flask, blueprints: List[Blueprint]):

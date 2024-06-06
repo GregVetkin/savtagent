@@ -2,12 +2,13 @@ from flask              import Blueprint, jsonify, request
 from modules.file       import FileInfoCollector
 import os
 
-file_blueprint = Blueprint('file', __name__)
+
+blueprint_file = Blueprint('file', __name__)
 
 
 
 
-@file_blueprint.route('/file/info', methods=['GET'])
+@blueprint_file.route('/file/info', methods=['GET'])
 def cpu_usage():
     file_path   = request.args.get('path', default=None, type=str)
     hashalg     = request.args.get('hashalg', default=None, type=str)

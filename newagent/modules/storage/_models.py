@@ -23,4 +23,3 @@ class DiskInfo:
     mountpoint: str         = ""
     usage:      DiskUsage   = field(default_factory=DiskUsage)
     io:         DiskIO      = field(default_factory=DiskIO)
-
