@@ -8,6 +8,9 @@ from ._models                    import PostgresConfig
 
 
 class PostgreSQL(Database):
+    """Базовый класс для взаимодействия с Postgresql"""
+
+
     def __init__(self, connection_config: PostgresConfig):
         self._config        = connection_config
         self._connection    = None

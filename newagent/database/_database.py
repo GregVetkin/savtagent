@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 
 
 class Database(ABC):
+    """
+    Базовая реализация класса для взаимодействия с абстрактной базой данных.
+    """
+
     @abstractmethod
     def _connect(self):
         pass
