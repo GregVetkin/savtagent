@@ -1,0 +1,409 @@
+{
+	"info": {
+		"_postman_id": "b7e5fc93-6268-4d2e-bdcd-85ff2d7f264f",
+		"name": "SAVT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34235649"
+	},
+	"item": [
+		{
+			"name": "Memory",
+			"item": [
+				{
+					"name": "All memory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/memory",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"memory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SWAP memory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/memory/swap",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"memory",
+								"swap"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RAM memory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/memory/ram",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"memory",
+								"ram"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CPU",
+			"item": [
+				{
+					"name": "Usage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/cpu/usage",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"cpu",
+								"usage"
+							],
+							"query": [
+								{
+									"key": "interval",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Process",
+			"item": [
+				{
+					"name": "All processes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/process",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific process",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/process/1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"process",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Network",
+			"item": [
+				{
+					"name": "All interfaces",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/network/interface",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"network",
+								"interface"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Connections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/network/connections",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"network",
+								"connections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Specific interface",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/network/interface/lo",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"network",
+								"interface",
+								"lo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Storage",
+			"item": [
+				{
+					"name": "All disks info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "System",
+			"item": [
+				{
+					"name": "Shutdown machine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/shutdown",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"shutdown"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reboot machine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/reboot",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"reboot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/fileinfo?path=/home/greg/Downloads/wallpaper.png&hashalg=sha256",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"fileinfo"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/home/greg/Downloads/wallpaper.png",
+									"description": "Path to the file"
+								},
+								{
+									"key": "hashalg",
+									"value": "sha256",
+									"description": "Hash alg name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/logs?since=2024-05-20 09:20:00&until=2024-05-20 11:20:00&priority=7&lines=3&unit=savtd.service",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"logs"
+							],
+							"query": [
+								{
+									"key": "since",
+									"value": "2024-05-20 09:20:00"
+								},
+								{
+									"key": "until",
+									"value": "2024-05-20 11:20:00"
+								},
+								{
+									"key": "priority",
+									"value": "7"
+								},
+								{
+									"key": "lines",
+									"value": "3"
+								},
+								{
+									"key": "unit",
+									"value": "savtd.service"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send notification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/notification?title=SAVT&text=test",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"notification"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "SAVT"
+								},
+								{
+									"key": "text",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

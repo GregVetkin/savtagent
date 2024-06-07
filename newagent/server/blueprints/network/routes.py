@@ -19,7 +19,7 @@ def all_connections():
                     status          = 200)
 
 
-@blueprint_network.route('/network/interfaces', methods=['GET'])
+@blueprint_network.route('/network/interface', methods=['GET'])
 def all_interfaces():
     interfaces = NetInterfacesesIOCollector().collect()
     return Response(response        = json.dumps([asdict(interface) for interface in interfaces], indent=4), 
@@ -28,7 +28,7 @@ def all_interfaces():
 
 
 
-@blueprint_network.route('/network/interfaces/<string:interface_name>', methods=['GET'])
+@blueprint_network.route('/network/interface/<string:interface_name>', methods=['GET'])
 def one_interface(interface_name):
     interfaces = NetInterfacesesIOCollector().collect()
     for interface in interfaces:
