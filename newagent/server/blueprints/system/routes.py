@@ -1,12 +1,15 @@
 import json
 from flask              import Response, Blueprint, request
-from modules.system     import SystemLogCollector, reboot, shutdown
+from modules.system     import SystemLogCollector, reboot, shutdown, Notificator
 
 
 blueprint_system = Blueprint('system', __name__)
 
 
-BAD_PRIORITY    = {'error': 'Bad priority. Accepted: 0, 1, 2, 3, 4, 5, 6, 7, debug, info, notice, warning, err, crit, alert, emerg'}
+BAD_PRIORITY        = {'error': 'Bad priority. Accepted: 0, 1, 2, 3, 4, 5, 6, 7, debug, info, notice, warning, err, crit, alert, emerg'}
+NO_MESSAGE_TITLE    = {'error': 'No title'}
+NO_TEXT_MESSAGE     = {'error': 'No text message'}
+
 PRIORITIES      = [None, "0", "1", "2", "3", "4", "5", "6", "7", "debug", "info", "notice", "warning", "err", "crit", "alert", "emerg"]
 
 
@@ -52,3 +55,27 @@ def reboot_pc():
         return Response(response        = "OK", 
                         status          = 200) 
     
+
+
+@blueprint_system.route('/system/notification', methods=['GET'])
+def send_notification():
+    title   = request.args.get('title', type=str)
+    text    = request.args.get('text',  type=str)
+
+    if title is None:
+        return Response(response        = json.dumps(NO_MESSAGE_TITLE, indent=4), 
+                        content_type    = "application/json",
+                        status          = 404)
+    if text is None:
+        return Response(response        = json.dumps(NO_TEXT_MESSAGE, indent=4), 
+                        content_type    = "application/json",
+                        status          = 404)
+
+    try:
+        Notificator(title, text).notify()
+    except Exception as e:
+        return Response(response        = str(e), 
+                        status          = 500)
+    else:
+        return Response(response        = "OK", 
+                        status          = 200) 

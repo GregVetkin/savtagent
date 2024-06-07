@@ -42,3 +42,9 @@ class SystemLogCollector(BaseCollector):
         
     def collect(self):
         return self._journalctl_logs()
+    
+
+
+class WorkingUsersCollector(BaseCollector):
+    def collect(self):
+        return ["greg"]
