@@ -7,7 +7,8 @@ from .blueprints.memory.routes      import blueprint_memory
 from .blueprints.cpu.routes         import blueprint_cpu
 from .blueprints.file.routes        import blueprint_file
 from .blueprints.storage.routes     import blueprint_storage
-
+from .blueprints.process.routes     import blueprint_process
+from .blueprints.network.routes     import blueprint_network
 
 APP         = Flask(__name__)
 HOST        = '0.0.0.0'
@@ -17,7 +18,9 @@ BLUEPRINTS  = [
     blueprint_memory,
     blueprint_cpu,
     blueprint_file,
-    blueprint_storage
+    blueprint_storage,
+    blueprint_process,
+    blueprint_network,
 ]
 CORS(APP)
 

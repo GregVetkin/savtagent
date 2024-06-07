@@ -9,9 +9,16 @@ class RamMemoryCollector(BaseCollector):
         ram = virtual_memory()
         return RamMemory(
             total       = ram.total,
-            free        = ram.available,
-            used        = ram.total - ram.available,
-            percent     = ram.percent
+            free        = ram.free,
+            used        = ram.used,
+            percent     = ram.percent,
+            active      = ram.active,
+            available   = ram.available,
+            buffers     = ram.buffers,
+            cached      = ram.cached,
+            inactive    = ram.inactive,
+            shared      = ram.shared,
+            slab        = ram.slab,
         )
 
 
@@ -22,7 +29,9 @@ class SwapMemoryCollector(BaseCollector):
             total   = swap.total,
             free    = swap.free,
             used    = swap.used,
-            percent = swap.percent
+            percent = swap.percent,
+            sin     = swap.sin,
+            sout    = swap.sout,
         )
 
 

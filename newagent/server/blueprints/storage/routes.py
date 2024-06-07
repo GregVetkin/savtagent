@@ -11,8 +11,8 @@ blueprint_storage = Blueprint('storage', __name__)
 
 @blueprint_storage.route('/storage', methods=['GET'])
 def all_disks_data():
-    disks       = DisksInfoCollector().collect()
-    json_string = json.dumps(asdict(disks), indent=4)
+    disks           = DisksInfoCollector().collect()
+    json_string     = json.dumps([asdict(disk) for disk in disks], indent=4)
     return Response(json_string, content_type="application/json")
 
 
