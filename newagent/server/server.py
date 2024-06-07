@@ -9,6 +9,8 @@ from .blueprints.file.routes        import blueprint_file
 from .blueprints.storage.routes     import blueprint_storage
 from .blueprints.process.routes     import blueprint_process
 from .blueprints.network.routes     import blueprint_network
+from .blueprints.system.routes      import blueprint_system
+
 
 APP         = Flask(__name__)
 HOST        = '0.0.0.0'
@@ -21,6 +23,7 @@ BLUEPRINTS  = [
     blueprint_storage,
     blueprint_process,
     blueprint_network,
+    blueprint_system,
 ]
 CORS(APP)
 
