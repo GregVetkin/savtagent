@@ -12,18 +12,23 @@ blueprint_memory = Blueprint('memory', __name__)
 
 @blueprint_memory.route('/memory', methods=['GET'])
 def all_memory():
-    memory      = MemoryCollector().collect()
-    json_string = json.dumps(asdict(memory), indent=4)
-    return Response(json_string, content_type="application/json")
+    memory = MemoryCollector().collect()
+    return Response(response        = json.dumps(asdict(memory), indent=4), 
+                    content_type    = "application/json",
+                    status          = 200)
 
 
 @blueprint_memory.route('/memory/ram', methods=['GET'])
 def ram_memory():
-    ram      = RamMemoryCollector().collect()
-    return jsonify(ram)
+    ram = RamMemoryCollector().collect()
+    return Response(response        = json.dumps(asdict(ram), indent=4), 
+                    content_type    = "application/json",
+                    status          = 200)
 
 
 @blueprint_memory.route('/memory/swap', methods=['GET'])
 def swap_memory():
-    swap      = SwapMemoryCollector().collect()
-    return jsonify(swap)
+    swap = SwapMemoryCollector().collect()
+    return Response(response        = json.dumps(asdict(swap), indent=4), 
+                    content_type    = "application/json",
+                    status          = 200)

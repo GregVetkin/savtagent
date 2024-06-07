@@ -1,9 +1,14 @@
-from flask              import Blueprint, jsonify, request
+import json
+from dataclasses        import asdict
+from flask              import Blueprint, Response, request
 from modules.file       import FileInfoCollector
 import os
 
 
 blueprint_file = Blueprint('file', __name__)
+
+NO_SUCH_ALGORITHM   = {'error': 'No such hash algorithm. Available: md5, sha256'}
+FILE_NOT_FOUND      = {'error': 'File not found'}
 
 
 
@@ -14,10 +19,16 @@ def cpu_usage():
     hashalg     = request.args.get('hashalg', default=None, type=str)
     
     if not file_path and os.path.isfile(file_path):
-        return jsonify({'error': 'File not found'}), 404
+        return Response(response        = json.dumps(FILE_NOT_FOUND, indent=4), 
+                        content_type    = "application/json",
+                        status          = 404)
     
     if hashalg not in [None, "md5", "sha256"]:
-        return jsonify({'error': 'No such hash algorithm. Available: md5, sha256'}), 404
+        return Response(response        = json.dumps(NO_SUCH_ALGORITHM, indent=4), 
+                        content_type    = "application/json",
+                        status          = 404)
     
     file_data       = FileInfoCollector(file_path, hashalg).collect()
-    return jsonify(file_data)
+    return Response(response        = json.dumps(asdict(file_data), indent=4), 
+                    content_type    = "application/json",
+                    status          = 200)
