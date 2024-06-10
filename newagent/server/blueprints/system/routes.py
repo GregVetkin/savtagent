@@ -1,6 +1,6 @@
 import json
 from flask              import Response, Blueprint, request
-from modules.system     import SystemLogCollector, reboot, shutdown, Notificator
+from modules.system     import SystemLogCollector, reboot, shutdown, Notificator, ActiveUsersCollector
 
 
 blueprint_system = Blueprint('system', __name__)
@@ -79,3 +79,16 @@ def send_notification():
     else:
         return Response(response        = "OK", 
                         status          = 200) 
+    
+
+@blueprint_system.route('/system/users/active', methods=['GET'])
+def active_users():
+    try:
+        users = ActiveUsersCollector().collect()
+    except Exception as e:
+        return Response(response        = str(e), 
+                        status          = 500)
+    else:
+        return Response(response        = json.dumps(users, indent=4), 
+                        content_type    = "application/json",
+                        status          = 200)

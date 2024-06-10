@@ -45,6 +45,18 @@ class SystemLogCollector(BaseCollector):
     
 
 
-class WorkingUsersCollector(BaseCollector):
-    def collect(self):
-        return ["greg"]
+class ActiveUsersCollector(BaseCollector):
+    def _get_active_users(self):
+        command = ['users']
+        try:
+            result = subprocess.run(command, capture_output=True, text=True, check=True)
+            users = result.stdout.strip().split()
+            return users
+        except subprocess.CalledProcessError as e:
+            raise Exception(str(e))
+
+    def collect(self) -> List[str]:
+        return self._get_active_users()
+    
+
+

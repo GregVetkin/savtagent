@@ -1,7 +1,7 @@
 import os
 import sys
 import subprocess
-from ._collectors   import WorkingUsersCollector
+from ._collectors   import ActiveUsersCollector
 
 main_file_path = os.path.abspath(sys.argv[0])
 main_file_dir  = os.path.dirname(main_file_path)
@@ -32,7 +32,7 @@ class Notificator:
 
     def notify(self):
         if not self._user:
-            for user in WorkingUsersCollector().collect():
+            for user in ActiveUsersCollector().collect():
                 self._notificate_user(user)
         else:
             self._notificate_user(self._user)
