@@ -3,7 +3,12 @@ import os
 import pwd
 import sys
 
-APP_NAME = "SAVT AGENT"
+main_file_path = os.path.abspath(sys.argv[0])
+main_file_dir  = os.path.dirname(main_file_path)
+
+
+APP_NAME    = "SAVT AGENT"
+ICON_PATH   = f"{main_file_dir}/notification_icon.png"
 
 
 def get_uid_by_username(username):
@@ -13,6 +18,7 @@ def get_uid_by_username(username):
     except KeyError:
         return None
 
+
 def notify(title, text):
     username    = os.getenv('USER')
     uid         = get_uid_by_username(username)
@@ -20,7 +26,7 @@ def notify(title, text):
         os.environ['DBUS_SESSION_BUS_ADDRESS'] = f'unix:path=/run/user/{uid}/bus'
 
     notify2.init(APP_NAME)
-    notification = notify2.Notification(title, text)
+    notification = notify2.Notification(title, text, ICON_PATH)
     notification.set_timeout(notify2.EXPIRES_NEVER)
     notification.show()
 
