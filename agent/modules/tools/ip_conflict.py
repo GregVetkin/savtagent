@@ -1,4 +1,5 @@
 import concurrent.futures
+import subprocess
 from psutil                 import net_if_addrs
 from scapy.all              import ARP, Ether, srp
 from socket                 import AddressFamily
@@ -55,6 +56,37 @@ def check_ip_collisions_threads() -> Dict[str, Dict[str, bool]]:
     return interfaces
 
 
+
+def ip_duplication(ip, interface):
+    """
+    Linux package required: 'iputils-arping'  (sudo apt-get install iputils-arping).
+    The package is present in the repository of the Astra-Linux installation disk.
+
+    :return:  True - there is a duplicate, False - there is not
+    """
+
+    command = f'sudo arping -D -w 1 -I {interface} {ip}'
+    process = subprocess.Popen([command], shell=True, stdout=subprocess.PIPE)
+    bash_result = process.wait()
+
+    if bash_result == 0:
+        return False
+
+    elif bash_result == 1:
+        return True
+
+
+def threading_ip_duplication():
+    interfaces = _get_interfaces_addresses_ipv4()
+    ip_list     = [(iface, ip) for iface, ips in interfaces.items() for ip in ips]
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        results = list(executor.map(lambda x: (x[0], x[1], ip_duplication(x[1], x[0])), ip_list))
+
+    for iface, ip, status in results:
+        interfaces[iface][ip] = status
+
+    return interfaces
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@ import json
 from dataclasses        import asdict
 from flask              import Response, Blueprint
 from modules.network    import NetConnectionsCollector, NetInterfacesesIOCollector
-from modules.tools      import check_ip_collisions_threads
+from modules.tools      import check_ip_collisions_threads, threading_ip_duplication
 
 
 blueprint_network = Blueprint('network', __name__)
@@ -46,7 +46,7 @@ def one_interface(interface_name):
 @blueprint_network.route('/network/collisions', methods=['GET'])
 def ip_collisions():
     try:
-        collisions = check_ip_collisions_threads()
+        collisions = threading_ip_duplication()
     except Exception as e:
         return Response(response        = json.dumps({"error": str(e)}, indent=4), 
                         content_type    = "application/json",
