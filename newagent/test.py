@@ -1,6 +1,5 @@
+from psutil import net_if_addrs
 
-from modules.system import ActiveUsersCollector
-
-users = ActiveUsersCollector().collect()
-
-print(users)
+addr = net_if_addrs()
+for interface in addr:
+    print(interface, "-->", addr[interface])

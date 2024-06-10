@@ -2,7 +2,7 @@ import subprocess
 import json
 from models             import BaseCollector
 from typing             import List
-
+from time               import time
 
 
 class SystemLogCollector(BaseCollector):
@@ -60,3 +60,22 @@ class ActiveUsersCollector(BaseCollector):
     
 
 
+class SystemTimeCollector(BaseCollector):
+    def _get_system_time(self):
+        return time()
+
+    def collect(self) -> float:
+        return self._get_system_time()
+    
+
+
+class SystemUptimeCollector(BaseCollector):
+    def _get_system_uptime_from_file(self):
+        with open('/proc/uptime', 'r') as f:
+            uptime_seconds = float(f.readline().split()[0])
+        return uptime_seconds
+    
+
+    def collect(self) -> float:
+        return self._get_system_uptime_from_file()
+    

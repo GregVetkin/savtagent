@@ -1,6 +1,6 @@
 import json
 from flask              import Response, Blueprint, request
-from modules.system     import SystemLogCollector, reboot, shutdown, Notificator, ActiveUsersCollector
+from modules.system     import SystemLogCollector, reboot, shutdown, Notificator, ActiveUsersCollector, SystemTimeCollector, SystemUptimeCollector
 
 
 blueprint_system = Blueprint('system', __name__)
@@ -90,5 +90,31 @@ def active_users():
                         status          = 500)
     else:
         return Response(response        = json.dumps(users, indent=4), 
+                        content_type    = "application/json",
+                        status          = 200)
+    
+
+@blueprint_system.route('/system/time', methods=['GET'])
+def system_time():
+    try:
+        sys_time = SystemTimeCollector().collect()
+    except Exception as e:
+        return Response(response        = str(e), 
+                        status          = 500)
+    else:
+        return Response(response        = json.dumps(sys_time, indent=4), 
+                        content_type    = "application/json",
+                        status          = 200)
+
+
+@blueprint_system.route('/system/uptime', methods=['GET'])
+def system_uptime():
+    try:
+        sys_uptime = SystemUptimeCollector().collect()
+    except Exception as e:
+        return Response(response        = str(e), 
+                        status          = 500)
+    else:
+        return Response(response        = json.dumps(sys_uptime, indent=4), 
                         content_type    = "application/json",
                         status          = 200)

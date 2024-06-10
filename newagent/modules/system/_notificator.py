@@ -1,6 +1,5 @@
 import os
 import sys
-import subprocess
 from ._collectors   import ActiveUsersCollector
 
 main_file_path = os.path.abspath(sys.argv[0])
