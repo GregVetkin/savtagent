@@ -85,7 +85,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8081/cpu/usage",
+							"raw": "127.0.0.1:8081/cpu/usage?interval=1",
 							"host": [
 								"127",
 								"0",
@@ -100,8 +100,7 @@
 							"query": [
 								{
 									"key": "interval",
-									"value": "1",
-									"disabled": true
+									"value": "1"
 								}
 							]
 						}
@@ -227,6 +226,28 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "IP collisions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/network/collisions",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"network",
+								"collisions"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -239,7 +260,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "127.0.0.1:8081/storage",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"storage"
+							]
 						}
 					},
 					"response": []
@@ -373,7 +404,22 @@
 				},
 				{
 					"name": "Send notification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -398,6 +444,73 @@
 									"key": "text",
 									"value": "test"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Active users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/users/active",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"users",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "System time",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/time",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"time"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uptime",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/system/uptime",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"system",
+								"uptime"
 							]
 						}
 					},
