@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disk Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .disk-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .disk {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .bar {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .bar div {
+            flex: 1;
+            height: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+            background-color: #eee;
+            margin-right: 10px;
+            position: relative;
+        }
+        .bar div span {
+            display: block;
+            height: 100%;
+            background-color: #4caf50;
+        }
+        .bar p {
+            margin: 0;
+            font-weight: bold;
+        }
+        .disk-info {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Disk Information</h1>
+    <div id="disk-info" class="disk-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
