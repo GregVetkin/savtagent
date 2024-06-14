@@ -1,5 +1,5 @@
 import hashlib
-
+import re
 from pathlib            import Path
 from models             import BaseCollector
 from ._models           import FileInfo
@@ -38,3 +38,27 @@ class FileInfoCollector(BaseCollector):
             ctime   = file_stats.st_ctime,
             mtime   = file_stats.st_mtime,
         )
+
+
+class FileRegexCollector(BaseCollector):
+    def __init__(self, filepath, pattern) -> None:
+        self._filepath  = filepath
+        self._pattern   = pattern
+
+    def collect(self):
+        coincidences = []
+        try:
+            regex = re.compile(self._pattern)
+            with open(self._filepath, 'r', encoding='utf-8') as file:
+                for line in file:
+                    matches = regex.findall(line)
+                    if matches:
+                        for match in matches:
+                            coincidences.append(match)
+
+        except FileNotFoundError:
+            raise Exception(f"Файл {self._filepath} не найден.")
+        except re.error:
+            raise Exception(f"Некорректное регулярное выражение: {self._pattern}")
+        else:
+            return coincidences
