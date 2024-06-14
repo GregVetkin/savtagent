@@ -3,12 +3,12 @@ from dataclasses        import asdict
 from flask              import Response, Blueprint
 from modules.network    import NetConnectionsCollector, NetInterfacesesIOCollector
 from modules.tools      import check_ip_collisions_threads, threading_ip_duplication
-
+from ._errors           import *
 
 blueprint_network = Blueprint('network', __name__)
 
 
-NO_SUCH_INTERFACE = {"error": "No such interface"}
+
 
 
 @blueprint_network.route('/network/connections', methods=['GET'])
@@ -17,6 +17,7 @@ def all_connections():
     return Response(response        = json.dumps([asdict(conn) for conn in connections], indent=4), 
                     content_type    = "application/json",
                     status          = 200)
+
 
 
 @blueprint_network.route('/network/interface', methods=['GET'])
@@ -55,3 +56,4 @@ def ip_collisions():
         return Response(response        = json.dumps(collisions, indent=4), 
                         content_type    = "application/json",
                         status          = 200)
+    

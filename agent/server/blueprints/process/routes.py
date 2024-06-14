@@ -2,12 +2,12 @@ import json
 from flask              import Response, Blueprint, jsonify, request
 from modules.process    import ProcessesCollector
 from dataclasses        import asdict
-
+from ._errors           import *
 
 
 blueprint_process = Blueprint('process', __name__)
 
-NO_SUCH_PROCESS = {"error": "No such process"}
+
 
 
 

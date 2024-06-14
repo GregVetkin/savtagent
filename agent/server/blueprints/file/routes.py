@@ -1,15 +1,13 @@
+import os
 import json
 from dataclasses        import asdict
 from flask              import Blueprint, Response, request
 from modules.file       import FileInfoCollector
-import os
+from ._errors           import *
 
 
 blueprint_file = Blueprint('file', __name__)
 
-NO_SUCH_ALGORITHM   = {'error': 'No such hash algorithm. Available: md5, sha256'}
-FILE_NOT_FOUND      = {'error': 'File not found'}
-BAD_FILE_PATH       = {'error': 'Bad file path'}
 
 
 

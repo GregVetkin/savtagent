@@ -1,16 +1,13 @@
 import json
 from flask              import Response, Blueprint, request
 from modules.system     import SystemLogCollector, reboot, shutdown, Notificator, ActiveUsersCollector, SystemTimeCollector, SystemUptimeCollector
+from ._errors           import *
 
 
-blueprint_system = Blueprint('system', __name__)
+blueprint_system    = Blueprint('system', __name__)
+PRIORITIES          = [None, "0", "1", "2", "3", "4", "5", "6", "7", "debug", "info", "notice", "warning", "err", "crit", "alert", "emerg"]
 
 
-BAD_PRIORITY        = {'error': 'Bad priority. Accepted: 0, 1, 2, 3, 4, 5, 6, 7, debug, info, notice, warning, err, crit, alert, emerg'}
-NO_MESSAGE_TITLE    = {'error': 'No title'}
-NO_TEXT_MESSAGE     = {'error': 'No text message'}
-
-PRIORITIES      = [None, "0", "1", "2", "3", "4", "5", "6", "7", "debug", "info", "notice", "warning", "err", "crit", "alert", "emerg"]
 
 
 @blueprint_system.route('/system/logs', methods=['GET'])
