@@ -325,40 +325,6 @@
 					"response": []
 				},
 				{
-					"name": "File info",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:8081/system/fileinfo?path=/home/greg/Downloads/wallpaper.png&hashalg=sha256",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8081",
-							"path": [
-								"system",
-								"fileinfo"
-							],
-							"query": [
-								{
-									"key": "path",
-									"value": "/home/greg/Downloads/wallpaper.png",
-									"description": "Path to the file"
-								},
-								{
-									"key": "hashalg",
-									"value": "sha256",
-									"description": "Hash alg name"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "System logs",
 					"request": {
 						"method": "GET",
@@ -511,6 +477,77 @@
 							"path": [
 								"system",
 								"uptime"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "File info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/file/info?path=/home/greg/Downloads/wallpaper.png&hashalg=sha256",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"file",
+								"info"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/home/greg/Downloads/wallpaper.png",
+									"description": "Path to the file"
+								},
+								{
+									"key": "hashalg",
+									"value": "sha256",
+									"description": "Hash alg name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "File regex",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8081/file/regex?path=/home/greg/Documents/Материалы в ТП_v03 (доработка по замечаниям).docx&pattern=\\b\\w{5}\\b",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8081",
+							"path": [
+								"file",
+								"regex"
+							],
+							"query": [
+								{
+									"key": "path",
+									"value": "/home/greg/Documents/Материалы в ТП_v03 (доработка по замечаниям).docx"
+								},
+								{
+									"key": "pattern",
+									"value": "\\b\\w{5}\\b"
+								}
 							]
 						}
 					},
