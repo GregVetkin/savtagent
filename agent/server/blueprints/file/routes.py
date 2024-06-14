@@ -40,7 +40,7 @@ def file_info():
 
 
 
-@blueprint_file.route('/file/regx', methods=['GET'])
+@blueprint_file.route('/file/regex', methods=['GET'])
 def file_regx():
     file_path   = request.args.get('path', default=None, type=str)
     pattern     = request.args.get('pattern', default=None, type=str)
@@ -61,8 +61,13 @@ def file_regx():
         return Response(response        = json.dumps(BAD_PATTERN, indent=4), 
                         content_type    = "application/json",
                         status          = 404)
-    
-    coincidences = FileRegexCollector(file_path, pattern).collect()
-    return Response(response        = json.dumps(coincidences, indent=4), 
-                    content_type    = "application/json",
-                    status          = 200)
+    try:
+        coincidences = FileRegexCollector(file_path, pattern).collect()
+    except Exception as e:
+        return Response(response        = json.dumps(str(e), indent=4), 
+                        content_type    = "application/json",
+                        status          = 500)
+    else:
+        return Response(response        = json.dumps(coincidences, indent=4), 
+                        content_type    = "application/json",
+                        status          = 200)

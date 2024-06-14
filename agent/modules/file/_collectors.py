@@ -1,5 +1,6 @@
 import hashlib
 import re
+import os
 from pathlib            import Path
 from models             import BaseCollector
 from ._models           import FileInfo
@@ -45,20 +46,62 @@ class FileRegexCollector(BaseCollector):
         self._filepath  = filepath
         self._pattern   = pattern
 
-    def collect(self):
-        coincidences = []
+    def _pattern_verification(self):
         try:
             regex = re.compile(self._pattern)
-            with open(self._filepath, 'r', encoding='utf-8') as file:
-                for line in file:
-                    matches = regex.findall(line)
-                    if matches:
-                        for match in matches:
-                            coincidences.append(match)
-
-        except FileNotFoundError:
-            raise Exception(f"Файл {self._filepath} не найден.")
         except re.error:
-            raise Exception(f"Некорректное регулярное выражение: {self._pattern}")
+            return False
         else:
-            return coincidences
+            return True
+
+    def _file_verification(self):
+        return os.path.exists(self._filepath) and os.path.isfile(self._filepath)
+
+    def _txt_regex(self):
+        coincidences = []
+        with open(self._filepath, 'r') as file:
+            for line in file:
+                matches = re.findall(line)
+                if matches:
+                    for match in matches:
+                        coincidences.append(match)
+        return coincidences
+
+    def _pdf_regex(self):
+        pass
+        raise Exception(f"Формат файла .pdf не поддерживается.")
+    
+    def _docx_regex(self):
+        pass
+        raise Exception(f"Формат файла .docx не поддерживается.")
+    
+    def _xlsx_regex(self):
+        pass
+        raise Exception(f"Формат файла .xlsx не поддерживается.")
+    
+    def _odt_regex(self):
+        pass
+        raise Exception(f"Формат файла .odt не поддерживается.")
+    
+
+    def collect(self):
+        if not self._file_verification:
+            raise Exception(f"Файл {self._filepath} не найден.")
+        
+        if not self._pattern_verification:
+            raise Exception(f"Некорректное регулярное выражение: {self._pattern}")
+        
+        fileformat = os.path.splitext(self._filepath)[1]
+
+        if fileformat == '.txt':
+            return self._txt_regex()
+        elif fileformat == '.odt':
+            return self._odt_regex()
+        elif fileformat == '.docx':
+            return self._docx_regex()
+        elif fileformat == '.pdf':
+            return self._pdf_regex()
+        elif fileformat == '.xlsx':
+            return self._xlsx_regex()
+        else:
+            raise Exception(f"Формат файла {fileformat} не поддерживается.")
