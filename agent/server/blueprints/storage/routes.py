@@ -2,6 +2,8 @@ import json
 from dataclasses        import asdict
 from flask              import Response, Blueprint, jsonify
 from modules.storage    import DisksInfoCollector
+from server._api_urls   import API_STORAGE
+
 
 blueprint_storage = Blueprint('storage', __name__)
 
@@ -9,7 +11,7 @@ blueprint_storage = Blueprint('storage', __name__)
 
 
 
-@blueprint_storage.route('/storage', methods=['GET'])
+@blueprint_storage.route(API_STORAGE, methods=['GET'])
 def all_disks_data():
     disks = DisksInfoCollector().collect()
     return Response(response        = json.dumps([asdict(disk) for disk in disks], indent=4), 

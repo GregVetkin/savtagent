@@ -2,6 +2,7 @@ import json
 from flask              import Response, Blueprint, request
 from modules.system     import SystemLogCollector, reboot, shutdown, Notificator, ActiveUsersCollector, SystemTimeCollector, SystemUptimeCollector
 from ._errors           import *
+from server._api_urls   import API_SYSTEM_ACTIVE_USERS, API_SYSTEM_LOGS, API_SYSTEM_NOTIFICATION, API_SYSTEM_REBOOT, API_SYSTEM_SHUTDOWN, API_SYSTEM_TIME, API_SYSTEM_UPTIME
 
 
 blueprint_system    = Blueprint('system', __name__)
@@ -10,7 +11,7 @@ PRIORITIES          = [None, "0", "1", "2", "3", "4", "5", "6", "7", "debug", "i
 
 
 
-@blueprint_system.route('/system/logs', methods=['GET'])
+@blueprint_system.route(API_SYSTEM_LOGS, methods=['GET'])
 def journalctl_logs():
     since       = request.args.get('since')
     until       = request.args.get('until')
@@ -28,8 +29,7 @@ def journalctl_logs():
                     status          = 200)
 
 
-
-@blueprint_system.route('/system/shutdown', methods=['GET'])
+@blueprint_system.route(API_SYSTEM_SHUTDOWN, methods=['GET'])
 def shutdown_pc():
     try:
         shutdown()
@@ -41,7 +41,7 @@ def shutdown_pc():
                         status          = 200)
 
 
-@blueprint_system.route('/system/reboot', methods=['GET'])
+@blueprint_system.route(API_SYSTEM_REBOOT, methods=['GET'])
 def reboot_pc():
     try:
         reboot()
@@ -53,8 +53,7 @@ def reboot_pc():
                         status          = 200) 
     
 
-
-@blueprint_system.route('/system/notification', methods=['GET'])
+@blueprint_system.route(API_SYSTEM_NOTIFICATION, methods=['GET'])
 def send_notification():
     title   = request.args.get('title', type=str)
     text    = request.args.get('text',  type=str)
@@ -78,7 +77,7 @@ def send_notification():
                         status          = 200) 
     
 
-@blueprint_system.route('/system/users/active', methods=['GET'])
+@blueprint_system.route(API_SYSTEM_ACTIVE_USERS, methods=['GET'])
 def active_users():
     try:
         users = ActiveUsersCollector().collect()
@@ -91,7 +90,7 @@ def active_users():
                         status          = 200)
     
 
-@blueprint_system.route('/system/time', methods=['GET'])
+@blueprint_system.route(API_SYSTEM_TIME, methods=['GET'])
 def system_time():
     try:
         sys_time = SystemTimeCollector().collect()
@@ -104,7 +103,7 @@ def system_time():
                         status          = 200)
 
 
-@blueprint_system.route('/system/uptime', methods=['GET'])
+@blueprint_system.route(API_SYSTEM_UPTIME, methods=['GET'])
 def system_uptime():
     try:
         sys_uptime = SystemUptimeCollector().collect()
