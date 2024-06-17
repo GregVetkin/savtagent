@@ -51,7 +51,7 @@ class ActiveUsersCollector(BaseCollector):
         try:
             result = subprocess.run(command, capture_output=True, text=True, check=True)
             users = result.stdout.strip().split()
-            return users
+            return list(set(users))
         except subprocess.CalledProcessError as e:
             raise Exception(str(e))
 
