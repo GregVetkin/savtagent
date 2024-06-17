@@ -1,6 +1,6 @@
 from database._database     import Database
 from dataclasses            import dataclass
-from ._sender               import DataSender, MemorySender
+from ._sender               import DataSender, ROUTE_TO_SENDER
 import requests
 
 
@@ -56,7 +56,5 @@ class HandlerFactory:
     
 
     def _get_sender(self, route: str):
-        if route == "/memory":
-            return MemorySender(self._db)
-        if route == "/cpu/usage":
-            pass
+        if route in ROUTE_TO_SENDER:
+            return ROUTE_TO_SENDER[route](self._db)
