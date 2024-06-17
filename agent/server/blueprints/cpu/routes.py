@@ -2,14 +2,14 @@ import json
 from dataclasses        import asdict
 from flask              import Blueprint, request, Response
 from modules.cpu        import CpuUsageCollector
-
+from server._api_urls   import API_CPU_USAGE
 
 blueprint_cpu = Blueprint('cpu', __name__)
 
 
 
 
-@blueprint_cpu.route('/cpu/usage', methods=['GET'])
+@blueprint_cpu.route(API_CPU_USAGE, methods=['GET'])
 def cpu_usage():
     interval    = request.args.get('interval', default=None, type=float)
     usage       = CpuUsageCollector(interval).collect()

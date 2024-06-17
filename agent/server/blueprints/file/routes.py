@@ -5,7 +5,7 @@ from dataclasses        import asdict
 from flask              import Blueprint, Response, request
 from modules.file       import FileInfoCollector, FileRegexCollector
 from ._errors           import *
-
+from server._api_urls   import API_FILE_INFO, API_FILE_REGEX
 
 blueprint_file = Blueprint('file', __name__)
 
@@ -13,7 +13,7 @@ blueprint_file = Blueprint('file', __name__)
 
 
 
-@blueprint_file.route('/file/info', methods=['GET'])
+@blueprint_file.route(API_FILE_INFO, methods=['GET'])
 def file_info():
     file_path   = request.args.get('path', default=None, type=str)
     hashalg     = request.args.get('hashalg', default=None, type=str)
@@ -40,7 +40,7 @@ def file_info():
 
 
 
-@blueprint_file.route('/file/regex', methods=['GET'])
+@blueprint_file.route(API_FILE_REGEX, methods=['GET'])
 def file_regx():
     file_path   = request.args.get('path', default=None, type=str)
     pattern     = request.args.get('pattern', default=None, type=str)

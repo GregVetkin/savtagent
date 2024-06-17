@@ -4,6 +4,8 @@ from flask              import Response, Blueprint
 from modules.network    import NetConnectionsCollector, NetInterfacesesIOCollector
 from modules.tools      import check_ip_collisions_threads, threading_ip_duplication
 from ._errors           import *
+from server._api_urls   import API_NETWORK_CONNECTIONS, API_NETWORK_COLLISIONS, API_NETWORK_INTERFACE, API_NETWORK_INTERFACE_CONCRETE
+
 
 blueprint_network = Blueprint('network', __name__)
 
@@ -11,7 +13,7 @@ blueprint_network = Blueprint('network', __name__)
 
 
 
-@blueprint_network.route('/network/connections', methods=['GET'])
+@blueprint_network.route(API_NETWORK_CONNECTIONS, methods=['GET'])
 def all_connections():
     connections = NetConnectionsCollector().collect()
     return Response(response        = json.dumps([asdict(conn) for conn in connections], indent=4), 
@@ -20,7 +22,7 @@ def all_connections():
 
 
 
-@blueprint_network.route('/network/interface', methods=['GET'])
+@blueprint_network.route(API_NETWORK_INTERFACE, methods=['GET'])
 def all_interfaces():
     interfaces = NetInterfacesesIOCollector().collect()
     return Response(response        = json.dumps([asdict(interface) for interface in interfaces], indent=4), 
@@ -29,7 +31,7 @@ def all_interfaces():
 
 
 
-@blueprint_network.route('/network/interface/<string:interface_name>', methods=['GET'])
+@blueprint_network.route(API_NETWORK_INTERFACE_CONCRETE, methods=['GET'])
 def one_interface(interface_name):
     interfaces = NetInterfacesesIOCollector().collect()
     for interface in interfaces:
@@ -44,7 +46,7 @@ def one_interface(interface_name):
 
 
 
-@blueprint_network.route('/network/collisions', methods=['GET'])
+@blueprint_network.route(API_NETWORK_COLLISIONS, methods=['GET'])
 def ip_collisions():
     try:
         collisions = threading_ip_duplication()

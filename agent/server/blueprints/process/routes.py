@@ -3,6 +3,8 @@ from flask              import Response, Blueprint, jsonify, request
 from modules.process    import ProcessesCollector
 from dataclasses        import asdict
 from ._errors           import *
+from server._api_urls   import API_PROCESS, API_PROCESS_CONCRETE
+
 
 
 blueprint_process = Blueprint('process', __name__)
@@ -12,7 +14,7 @@ blueprint_process = Blueprint('process', __name__)
 
 
 
-@blueprint_process.route('/process', methods=['GET'])
+@blueprint_process.route(API_PROCESS, methods=['GET'])
 def all_processes():
     interval        = request.args.get('path', default=None, type=float)
     processes       = ProcessesCollector(interval).collect()
@@ -22,7 +24,7 @@ def all_processes():
 
 
 
-@blueprint_process.route('/process/<int:pid>', methods=['GET'])
+@blueprint_process.route(API_PROCESS_CONCRETE, methods=['GET'])
 def pid_process(pid):
     interval  = request.args.get('path', default=None, type=float)
 
