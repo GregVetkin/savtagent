@@ -156,7 +156,7 @@ def enable_service(service_name):
         return success
 
 
-SOURCE_DIR      = "./notif" #"/home/greg/Documents/pyqt/notif"
+SOURCE_DIR      = "./agent"
 APP_DIR         = "/savt"
 USER_NAME       = "savtagent"
 SERVICE_NAME    = "savtd"
