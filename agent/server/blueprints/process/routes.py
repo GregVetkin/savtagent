@@ -26,7 +26,7 @@ def all_processes():
 
 @blueprint_process.route(API_PROCESS_CONCRETE, methods=['GET'])
 def pid_process(pid):
-    interval  = request.args.get('path', default=None, type=float)
+    interval  = request.args.get('interval', default=None, type=float)
 
     for process in ProcessesCollector(interval).collect():
         if process.pid == pid:
@@ -35,6 +35,6 @@ def pid_process(pid):
                             status          = 200)
 
     
-    return Response(response        = json.dumps(asdict(NO_SUCH_PROCESS), indent=4), 
+    return Response(response        = json.dumps(NO_SUCH_PROCESS, indent=4), 
                     content_type    = "application/json",
                     status          = 404)
