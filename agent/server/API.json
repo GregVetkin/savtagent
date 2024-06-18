@@ -128,6 +128,14 @@
 							"port": "8081",
 							"path": [
 								"process"
+							],
+							"query": [
+								{
+									"key": "interval",
+									"value": "1",
+									"description": "Интервал для получения загруженности процессора",
+									"disabled": true
+								}
 							]
 						}
 					},
