@@ -16,7 +16,7 @@ blueprint_process = Blueprint('process', __name__)
 
 @blueprint_process.route(API_PROCESS, methods=['GET'])
 def all_processes():
-    interval        = request.args.get('path', default=None, type=float)
+    interval        = request.args.get('interval', default=None, type=float)
     processes       = ProcessesCollector(interval).collect()
     return Response(response        = json.dumps([asdict(process) for process in processes], indent=4), 
                     content_type    = "application/json",
